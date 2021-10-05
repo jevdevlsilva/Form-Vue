@@ -82,7 +82,7 @@ h6 {
     min-height: 95vh;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 769px) {
   #app .v-container {
     min-height: 100%;
     background-image: none !important;

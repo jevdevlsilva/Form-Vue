@@ -123,7 +123,7 @@
               <b-form-checkbox-group
                 v-model="form.payment_type"
                 :options="options"
-                class="payment_options"
+                class="payment_options p-3"
               >
                 <br
               /></b-form-checkbox-group>
@@ -249,6 +249,7 @@ export default {
     maskAndVuelidatePrice(value) {
       let timeout = null;
       this.priceErrorMsg = true;
+
       if (value >= 30 && value <= 400) {
         this.priceErrorMsg = false;
         clearTimeout(timeout);
@@ -309,7 +310,6 @@ export default {
 }
 .payment_options {
   cursor: pointer;
-  margin-top: 2rem;
 }
 #app .v-container {
   background-image: url("../assets/desktop-pagina-2.png");

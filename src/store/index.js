@@ -12,10 +12,17 @@ export default new Vuex.Store({
     CHANGE_USER(state, user) {
       state.user = { ...state.user, ...user };
     },
+    DESTROY_USER(state, user) {
+      user = {};
+      state.user = user;
+    },
   },
   actions: {
     setUser({ commit }, payload) {
       commit("CHANGE_USER", payload);
+    },
+    deleteUser({ commit }, payload) {
+      commit("DESTROY_USER", payload);
     },
   },
   modules: {},

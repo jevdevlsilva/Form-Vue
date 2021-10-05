@@ -2,13 +2,16 @@
   <div class="page3">
     <b-container class=" mb-5 v-container">
       <h1 class="v-text-purple mb-5">Cadastro realizado com Sucesso</h1>
-      <b-row>
-        <h4 class="my-3">{{ user.name }}</h4>
-        <!-- <h6 class="p-3">Obrigado pelo seu contato</h6> -->
-        <p class="v-title p-3">
-          Em breve entraremos em contato para formalizar tudo.
-        </p>
-        <h4 class="v-text-purple my-5">Acompanhe nossas redes sociais</h4>
+      <b-row class="py-5">
+        <b-col sm="12" md="8" lg="6">
+          <h4 class="my-3">{{ user.name }}</h4>
+          <!-- <h6 class="p-3">Obrigado pelo seu contato</h6> -->
+          <p class="v-title p-3 mt-0">
+            Em breve entraremos em contato
+          </p>
+          <p class="v-title p-3">via e-mail, para passar mais intruções.</p>
+          <h4 class="v-text-purple my-5">Acompanhe nossas redes sociais</h4>
+        </b-col>
       </b-row>
       <b-icon-instagram
         class="iconSocialMedia p-5"
@@ -44,13 +47,13 @@ export default {
   created() {
     console.log(this.user);
     this.form = this.user;
+    this.$store.dispatch("setUser", this.form);
   },
 };
 </script>
 <style scoped>
 .v-title {
   font-weight: 900;
-  margin-top: 40px;
   margin-bottom: 0;
 }
 .user-data {
@@ -84,6 +87,9 @@ export default {
 }
 .iconSocialMedia {
   cursor: pointer;
+  color: #483698;
+}
+.page3 {
 }
 
 @media screen and (max-width: 767px) {
