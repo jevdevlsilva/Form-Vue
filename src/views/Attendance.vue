@@ -47,8 +47,8 @@
                   aria-describedby="input-live-help input-live-feedback"
                   placeholder="Valor"
                   size="sm"
+                  @keyup="maskAndVuelidatePrice(form.price)"
                   v-model="form.price"
-                  @blur="moeda(form.price)"
                   trim
                   class="mt-3"
                   :class="
@@ -61,6 +61,9 @@
                 >
                 </b-form-input>
               </b-input-group>
+              <small v-if="priceErrorMsg" class="text-danger"
+                >Digite um valor entre 30 e 400*</small
+              >
               <small v-if="error && form.price == undefined" class="text-danger"
                 >Esse campo é obrigatorio*</small
               >
@@ -145,6 +148,7 @@ export default {
         to: "/revisao",
         color: "purple",
       },
+      priceErrorMsg: false,
       form: {
         specialitiy: null,
       },
@@ -180,10 +184,7 @@ export default {
     StepBack() {
       this.$router.push("/");
     },
-    moeda(v) {
-      // v.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
-      // this.form.price = v;
-      // return v;
+    maskMoney(v) {
       if ((v != "") | (v != undefined)) {
         if (!isNaN(v)) {
           let newNumber = new Intl.NumberFormat("pt-br", {
@@ -196,6 +197,29 @@ export default {
         }
       }
     },
+
+    maskAndVuelidatePrice(value) {
+      let timeout = null;
+      this.priceErrorMsg = true;
+      if (value >= 30 && value <= 400) {
+        this.priceErrorMsg = false;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          this.maskMoney(value);
+        }, 1000);
+      } else {
+        console.log("errado");
+      }
+    },
+    // vuelidatePriceBetween(value) {
+    //   console.log(value);
+    //   if (value >= 30 && value <= 400) {
+    //     console.log("certo");
+    //     this.form.price = this.maskMoney(value);
+    //   } else {
+    //     console.log("errado");
+    //   }
+    // },
   },
   components: { Button, ButtonStepBack },
   computed: {
