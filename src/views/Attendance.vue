@@ -72,7 +72,7 @@
         </b-row>
         <b-row>
           <b-col sm="12" md="8" lg="5">
-            <b-form-group
+            <!-- <b-form-group
               label="Formas de pagamento de consulta*"
               label-class="mt-3"
             >
@@ -114,6 +114,51 @@
                 class="text-danger"
                 >Esse campo é obrigatorio*</small
               >
+            </b-form-group> -->
+
+            <b-form-group
+              label="Formas de pagamento de consulta*"
+              label-class="mt-3"
+            >
+              <b-form-checkbox-group
+                v-model="form.payment_type"
+                :options="options"
+                class="payment_options"
+              >
+                <br
+              /></b-form-checkbox-group>
+              <small
+                v-if="error && form.payment_type == undefined"
+                class="text-danger mt-3"
+                >Esse campo é obrigatorio*</small
+              >
+
+              <small
+                v-if="error && form.payment_type.length == 0"
+                class="text-danger mt-3"
+                >Esse campo é obrigatorio*</small
+              >
+              <b-row v-for="option in parcels" :key="option" class="parcels">
+                <b-form-checkbox
+                  v-if="showParcels"
+                  v-model="form.number_of_parcels"
+                  :value="option"
+                  :class="
+                    !error
+                      ? 'bordered'
+                      : form.payment_type == undefined
+                      ? 'bordered '
+                      : 'bordered'
+                  "
+                >
+                  <b-col class="checkbox-style">{{ option }}</b-col>
+                </b-form-checkbox>
+              </b-row>
+              <small
+                v-if="showParcels && !form.number_of_parcels"
+                class="text-danger"
+                >Esse campo é obrigatorio*</small
+              >
             </b-form-group>
           </b-col>
         </b-row>
@@ -141,8 +186,8 @@ export default {
   data() {
     return {
       error: false,
-      payment_type: null,
-      selected: null,
+      payment_type: [],
+      // selected: [],
       informativeButton: {
         text: "PRÓXIMO",
         to: "/revisao",
@@ -151,6 +196,7 @@ export default {
       priceErrorMsg: false,
       form: {
         specialitiy: null,
+        payment_type: [],
       },
       specialitiy: [
         { value: null, text: "Selecione", disabled: true },
@@ -163,17 +209,19 @@ export default {
       ],
       options: ["Pix", "Dinheiro", "Cartão de crédito"],
       parcels: ["1x sem juros", "2x sem juros", "3x sem juros"],
+      showParcels: false,
     };
   },
   methods: {
     formSteps(form) {
-      if (!form.specialitiy | !form.price | !form.payment_type) {
+      if (!form.specialitiy | !form.price || form.payment_type.length == 0) {
         this.error = true;
       } else {
-        if (this.form.payment_type == "Cartão de crédito") {
+        if (this.form.payment_type.includes("Cartão de crédito")) {
           if (form.number_of_parcels) {
             this.$store.dispatch("setUser", form);
             this.$router.push(this.informativeButton.to);
+            return;
           }
         } else {
           this.$store.dispatch("setUser", form);
@@ -221,6 +269,18 @@ export default {
     //   }
     // },
   },
+  watch: {
+    "form.payment_type": function() {
+      let payment_types = this.form.payment_type;
+
+      if (payment_types.includes("Cartão de crédito")) {
+        this.showParcels = true;
+        console.log("SIM");
+      } else {
+        this.showParcels = false;
+      }
+    },
+  },
   components: { Button, ButtonStepBack },
   computed: {
     ...mapState(["user"]),
@@ -247,7 +307,10 @@ export default {
   margin-left: 35px;
   padding: 10px;
 }
-
+.payment_options {
+  cursor: pointer;
+  margin-top: 2rem;
+}
 #app .v-container {
   background-image: url("../assets/desktop-pagina-2.png");
   margin-top: 50px;

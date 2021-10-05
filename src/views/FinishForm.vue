@@ -1,21 +1,27 @@
 <template>
   <div class="page3">
-    <ButtonStepBack></ButtonStepBack>
     <b-container class=" mb-5 v-container">
-      <h1 class="v-text-purple">Cadastro realizado com Sucesso</h1>
+      <h1 class="v-text-purple mb-5">Cadastro realizado com Sucesso</h1>
       <b-row>
-        <p class="v-title">
-          Em breve entraremos em contato para formalizar tudo
+        <h4 class="my-3">{{ user.name }}</h4>
+        <!-- <h6 class="p-3">Obrigado pelo seu contato</h6> -->
+        <p class="v-title p-3">
+          Em breve entraremos em contato para formalizar tudo.
         </p>
+        <h4 class="v-text-purple my-5">Acompanhe nossas redes sociais</h4>
       </b-row>
+      <b-icon-instagram
+        class="iconSocialMedia p-5"
+        scale="2"
+      ></b-icon-instagram>
+      <b-icon-facebook class="iconSocialMedia p-5" scale="2"></b-icon-facebook>
+      <b-icon-linkedin class="iconSocialMedia p-5" scale="2"></b-icon-linkedin>
     </b-container>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-// import Button from "../components/Button.vue";
-// import ButtonStepBack from "../components/ButtonStepBack.vue";
 
 export default {
   name: "Home",
@@ -28,53 +34,23 @@ export default {
         text: "CADASTRAR PROFISSIONAL",
         to: "/finalizar",
       },
-      form: {
-        state: null,
-        city: null,
-      },
-      specialitiy: [
-        { value: null, text: "Selecione", disabled: true },
-        "Cardiologia",
-        "Dermatologia",
-        "Neurologia",
-        "Oftalmologia",
-        "Psiquiatria",
-        "Urologia",
-      ],
-      options: [
-        { value: "pix", text: "Pix" },
-        { value: "money", text: "Em dinheiro" },
-        { value: "credit_card", text: "Cartão de crédito" },
-      ],
-
-      parcels: ["1x sem juros", "2x sem juros", "3x sem juros"],
-      number_of_parcels: "",
-      validations: {
-        name: {},
-      },
+      form: {},
     };
   },
-  methods: {
-    editUser() {
-      this.$router.push("/");
-    },
-    nextStep() {
-      this.$router.push("/finalizar");
-    },
-  },
-  //   components: { Button, ButtonStepBack },
+  methods: {},
   computed: {
     ...mapState(["user"]), // assuming you are using namespaced modules
   },
   created() {
-    // console.log(this.user);
+    console.log(this.user);
+    this.form = this.user;
   },
 };
 </script>
 <style scoped>
 .v-title {
   font-weight: 900;
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 0;
 }
 .user-data {
@@ -105,6 +81,9 @@ export default {
 #app .v-container {
   background-image: url("../assets/desktop-pagina-4.png");
   margin-top: 50px;
+}
+.iconSocialMedia {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

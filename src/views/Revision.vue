@@ -27,19 +27,24 @@
         <p class="v-title">Preço da consulta</p>
         <p class="user-data">{{ user.price }}</p>
       </b-row>
-
-      <b-row v-if="user.payment_type != 'Cartão de crédito'">
+      <!-- 
+      <b-row >
         <p class="v-title">Formas de pagamento da consulta</p>
         <p class="user-data">
           {{ user.payment_type }}
         </p>
-      </b-row>
+      </b-row> -->
 
-      <b-row v-else>
+      <b-row>
         <p class="v-title">Formas de pagamento da consulta</p>
-        <p class="user-data">
-          {{ user.payment_type }} / {{ user.number_of_parcels }}
-        </p>
+        <b-row v-for="payment_type in user.payment_type" :key="payment_type">
+          <p class="user-data mt-1">
+            {{ payment_type }}
+            <span v-if="payment_type == 'Cartão de crédito'">
+              / {{ user.number_of_parcels }}</span
+            >
+          </p>
+        </b-row>
       </b-row>
 
       <b-row>
@@ -97,9 +102,6 @@ export default {
 
       parcels: ["1x sem juros", "2x sem juros", "3x sem juros"],
       number_of_parcels: "",
-      validations: {
-        name: {},
-      },
     };
   },
   methods: {
@@ -118,7 +120,7 @@ export default {
     ...mapState(["user"]), // assuming you are using namespaced modules
   },
   created() {
-    // console.log(this.user);
+    console.log(this.user);
   },
 };
 </script>
