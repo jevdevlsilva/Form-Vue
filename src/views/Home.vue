@@ -43,7 +43,7 @@
                 :class="
                   !error
                     ? 'v-form-control'
-                    : form.cpf == undefined
+                    : form.cpf == ''
                     ? 'v-form-control-error'
                     : 'v-form-control'
                 "
@@ -54,7 +54,9 @@
               <small v-if="error && form.cpf == null" class="text-danger"
                 >Esse campo é obrigatorio*</small
               >
-              <small v-else-if="error && cpf_error" class="text-danger"
+              <small
+                v-else-if="cpf_error || (error && this.form.cpf.length < 14)"
+                class="text-danger"
                 >Digite um cpf válido*</small
               >
             </b-form-group>
@@ -90,7 +92,7 @@
           </b-col>
         </b-row>
 
-        <b-row>
+        <b-row class="mb-5">
           <b-col sm="12" md="4" lg="3">
             <b-form-group label="Estado" label-class="mt-3">
               <b-form-select
@@ -141,11 +143,11 @@
             </b-form-group>
           </b-col>
         </b-row>
+        <MyProgressBar></MyProgressBar>
         <b-row>
           <b-col>
             <Button
               :informative="informativeButton"
-              :steps="steps"
               @nextStepEvent="formSteps(form)"
             ></Button>
           </b-col>
@@ -157,33 +159,27 @@
 
 <script>
 import Button from "../components/Button.vue";
+import MyProgressBar from "../components/MyProgressBar.vue";
 import { mapState } from "vuex";
 export default {
   name: "Home",
   data() {
     return {
       error: false,
+      value: 50,
+      max: 100,
       informativeButton: {
         text: "PRÓXIMO",
         to: "/atendimento",
         color: "purple",
-        // error: false,
       },
       form: {
         state: null,
         city: null,
         name: null,
         phone_number: null,
+        cpf: "",
       },
-      current_step: 1,
-      steps: {
-        "1": {
-          btn_text: "PŔOXIMO",
-          color: "purple",
-          to: "/atendimento",
-        },
-      },
-
       states: [
         { value: null, text: "Selecione", disabled: true },
         "Paraná",
@@ -216,30 +212,22 @@ export default {
     ...mapState(["user"]),
   },
   watch: {
-    // logica das validações
     "form.phone_number": function() {
       this.phone_number_error = false;
-
       if (this.form.phone_number.length < 16) {
         this.phone_number_error = true;
-      } else {
-        this.phone_number_error = false;
       }
     },
     "form.name": function() {
       this.name_error = false;
       if (this.form.name.length < 3 || this.form.name.length > 48) {
         this.name_error = true;
-      } else {
-        this.name_error = false;
       }
     },
     "form.cpf": function() {
       this.cpf_error = false;
       if (this.form.cpf.length < 14) {
         this.cpf_error = true;
-      } else {
-        this.cpf_error = false;
       }
     },
   },
@@ -249,13 +237,12 @@ export default {
     }
   },
   methods: {
-    // ...mapActions(["setUSer"]),
     formSteps(form) {
       if (
-        !form.name |
-        !form.phone_number |
-        !form.cpf |
-        !form.state |
+        !form.name ||
+        !form.phone_number ||
+        !form.cpf ||
+        !form.state ||
         !form.city
       ) {
         this.error = true;
@@ -264,14 +251,14 @@ export default {
         !this.name_error &&
         !this.cpf_error
       ) {
-        this.error = true;
+        this.error = false;
         this.$store.dispatch("setUser", form);
         this.$router.push(this.informativeButton.to);
       }
     },
   },
 
-  components: { Button },
+  components: { Button, MyProgressBar },
 };
 </script>
 <style scoped>

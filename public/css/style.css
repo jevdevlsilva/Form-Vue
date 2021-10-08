@@ -1,13 +1,20 @@
 /* ESTILIZAÇÂO GLOBAL */
 
+:root {
+  --purple-primary: #483698;
+  --purple-hover: #322569;
+  --yellow-cta1: #ffe766;
+  --yellow-cta2: #fbda40;
+  --secondary-7: #282828;
+  --red-danger: #dc3545;
+}
 #app {
   font-family: "Open Sans";
-  /* overflow-y: hidden; */
 }
 #app .home,
 #app .page2,
 #app .page3 {
-  background-color: #ffe766;
+  background-color: var(--yellow-cta1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +23,7 @@
 }
 #app .v-container {
   padding: 80px 120px;
-  background-color: white;
+  background-color: #fff;
   border-radius: 2.5rem;
   min-height: 80vh;
   margin-top: 80px;
@@ -28,7 +35,7 @@
 }
 .v-form-control,
 .v-custom-select {
-  border-color: #483698 !important;
+  border-color: var(--purple-primary) !important;
   background-color: #fff;
   font-family: "Comfortaa";
   padding: 8px 20px !important;
@@ -40,11 +47,14 @@
   background-color: #fff;
   padding: 8px 20px !important;
 }
+.v-custom-checkbox {
+  margin: 20px;
+}
 .v-bold {
   font-weight: 600;
 }
 .v-text-purple {
-  color: #483698;
+  color: var(--purple-primary);
   font-family: "Comfortaa";
   font-weight: bold;
 }
@@ -59,27 +69,57 @@ h6 {
   font-family: "Comfortaa";
 }
 .v-bg-purple {
-  background: #483698;
+  background: var(--purple-primary);
 }
 
 .home {
-  background-color: #ffe766;
+  background-color: var(--yellow-cta1);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 80vh;
 }
 
+.progressBar {
+  padding: 10px;
+  height: 15px;
+  background-color: var(--purple-primary);
+  margin-top: 20px;
+}
+.text-progress {
+  font-family: "Comfortaa";
+  color: var(--purple-primary);
+  text-align: right !important;
+  display: flex;
+  text-align: left;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 20%;
+}
+
+@media screen and (max-width: 1222px) {
+  .text-progress {
+    width: 25%;
+  }
+}
 @media screen and (max-width: 992px) {
   #app .v-container {
     background-size: 230px;
   }
+  .text-progress {
+    width: 45%;
+  }
 }
+
 @media screen and (max-width: 830px) {
   #app .v-container {
     background-size: 200px;
     margin-top: 15vh;
     min-height: 95vh;
+  }
+  .text-progress {
+    width: 35%;
+    margin-left: auto;
   }
 }
 @media screen and (max-width: 769px) {
@@ -88,6 +128,9 @@ h6 {
     background-image: none !important;
 
     padding: 60px;
+  }
+  .text-progress {
+    width: 45%;
   }
 }
 @media screen and (max-width: 530px) {

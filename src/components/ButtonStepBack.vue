@@ -41,7 +41,7 @@ export default {
 }
 .stepBackIcon {
   cursor: pointer;
-  color: #483698;
+  color: var(--purple-primary);
   font-weight: bolder;
 }
 

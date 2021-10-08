@@ -49,6 +49,7 @@
                   size="sm"
                   @keyup="maskAndVuelidatePrice(form.price)"
                   v-model="form.price"
+                  v-mask="'###,##'"
                   trim
                   class="mt-3"
                   :class="
@@ -72,64 +73,29 @@
         </b-row>
         <b-row>
           <b-col sm="12" md="8" lg="5">
-            <!-- <b-form-group
-              label="Formas de pagamento de consulta*"
-              label-class="mt-3"
-            >
-              <b-row v-for="option in options" :key="option">
-                <b-form-checkbox
-                  v-model="form.payment_type"
-                  :value="option"
-                  class="bordered mb-3"
-                  :class="
-                    !error
-                      ? 'bordered'
-                      : form.payment_type == undefined
-                      ? 'bordered '
-                      : 'bordered'
-                  "
-                >
-                  <span class="checkbox-style">{{ option }}</span>
-                </b-form-checkbox>
-              </b-row>
-              <small
-                v-if="error && form.payment_type == undefined"
-                class="text-danger mt-3"
-                >Esse campo é obrigatorio*</small
-              >
-              <b-row v-for="option in parcels" :key="option" class="parcels">
-                <b-form-checkbox
-                  v-if="form.payment_type == 'Cartão de crédito'"
-                  v-model="form.number_of_parcels"
-                  :value="option"
-                >
-                  <span class="checkbox-style">{{ option }}</span>
-                </b-form-checkbox>
-              </b-row>
-              <small
-                v-if="
-                  form.payment_type == 'Cartão de crédito' &&
-                    !form.number_of_parcels
-                "
-                class="text-danger"
-                >Esse campo é obrigatorio*</small
-              >
-            </b-form-group> -->
-
             <b-form-group
               label="Formas de pagamento de consulta*"
               label-class="mt-3"
             >
               <b-form-checkbox-group
                 v-model="form.payment_type"
-                :options="options"
-                class="payment_options p-3"
+                class="payment_options  p-3"
               >
-                <br
-              /></b-form-checkbox-group>
+                <b-form-checkbox class="bordered" value="Pix"
+                  >Pix</b-form-checkbox
+                >
+                <b-form-checkbox class="bordered" value="Dinheiro"
+                  >Dinheiro</b-form-checkbox
+                >
+                <b-form-checkbox
+                  :class="!classCreditCard ? 'bordered ' : 'py-4 px-4'"
+                  value="Cartão de crédito"
+                  >Cartão de crédito</b-form-checkbox
+                ></b-form-checkbox-group
+              >
               <small
                 v-if="error && form.payment_type == undefined"
-                class="text-danger mt-3"
+                class="text-danger mt-1"
                 >Esse campo é obrigatorio*</small
               >
 
@@ -138,30 +104,27 @@
                 class="text-danger mt-3"
                 >Esse campo é obrigatorio*</small
               >
-              <b-row v-for="option in parcels" :key="option" class="parcels">
-                <b-form-checkbox
-                  v-if="showParcels"
-                  v-model="form.number_of_parcels"
-                  :value="option"
-                  :class="
-                    !error
-                      ? 'bordered'
-                      : form.payment_type == undefined
-                      ? 'bordered '
-                      : 'bordered'
-                  "
-                >
-                  <b-col class="checkbox-style">{{ option }}</b-col>
-                </b-form-checkbox>
+              <b-row v-if="showParcels">
+                <b-row v-for="option in parcels" :key="option" class="parcels">
+                  <b-form-checkbox
+                    v-if="showParcels"
+                    v-model="form.number_of_parcels"
+                    :value="option"
+                  >
+                    <b-col class="checkbox-style">{{ option }}</b-col>
+                  </b-form-checkbox>
+                </b-row>
               </b-row>
               <small
                 v-if="showParcels && !form.number_of_parcels"
                 class="text-danger"
                 >Esse campo é obrigatorio*</small
               >
+              <b-row :class="classCreditCard ? 'bordered ' : 'p-4'"></b-row>
             </b-form-group>
           </b-col>
         </b-row>
+        <MyProgressBar :step="'2'"></MyProgressBar>
 
         <b-row>
           <b-col>
@@ -180,18 +143,20 @@
 import { mapState } from "vuex";
 import Button from "../components/Button.vue";
 import ButtonStepBack from "../components/ButtonStepBack.vue";
+import MyProgressBar from "../components/MyProgressBar.vue";
 
 export default {
   name: "Home",
   data() {
     return {
       error: false,
+      classCreditCard: false,
       payment_type: [],
-      // selected: [],
       informativeButton: {
         text: "PRÓXIMO",
         to: "/revisao",
         color: "purple",
+        back: "/",
       },
       priceErrorMsg: false,
       form: {
@@ -217,7 +182,10 @@ export default {
       if (!form.specialitiy | !form.price || form.payment_type.length == 0) {
         this.error = true;
       } else {
-        if (this.form.payment_type.includes("Cartão de crédito")) {
+        if (
+          this.form.payment_type.includes("Cartão de crédito") ||
+          this.priceErrorMsg
+        ) {
           if (form.number_of_parcels) {
             this.$store.dispatch("setUser", form);
             this.$router.push(this.informativeButton.to);
@@ -230,45 +198,15 @@ export default {
       }
     },
     StepBack() {
-      this.$router.push("/");
-    },
-    maskMoney(v) {
-      if ((v != "") | (v != undefined)) {
-        if (!isNaN(v)) {
-          let newNumber = new Intl.NumberFormat("pt-br", {
-            style: "currency",
-            currency: "BRL",
-          }).format(parseInt(v));
-          this.form.price = newNumber;
-        } else {
-          this.form.price = 0;
-        }
-      }
+      this.$router.push(this.informativeButton.back);
     },
 
     maskAndVuelidatePrice(value) {
-      let timeout = null;
       this.priceErrorMsg = true;
-
       if (value >= 30 && value <= 400) {
         this.priceErrorMsg = false;
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          this.maskMoney(value);
-        }, 1000);
-      } else {
-        console.log("errado");
       }
     },
-    // vuelidatePriceBetween(value) {
-    //   console.log(value);
-    //   if (value >= 30 && value <= 400) {
-    //     console.log("certo");
-    //     this.form.price = this.maskMoney(value);
-    //   } else {
-    //     console.log("errado");
-    //   }
-    // },
   },
   watch: {
     "form.payment_type": function() {
@@ -276,13 +214,14 @@ export default {
 
       if (payment_types.includes("Cartão de crédito")) {
         this.showParcels = true;
-        console.log("SIM");
+        this.classCreditCard = true;
       } else {
         this.showParcels = false;
+        this.classCreditCard = false;
       }
     },
   },
-  components: { Button, ButtonStepBack },
+  components: { Button, ButtonStepBack, MyProgressBar },
   computed: {
     ...mapState(["user"]),
   },
@@ -322,8 +261,8 @@ export default {
 .input-group-text {
   width: 100%;
   padding-top: 10px;
-  border: 2px solid #483698;
-  background: #483698 !important;
+  border: 2px solid var(--purple-primary);
+  background-color: var(--purple-primary) !important;
   color: #fff;
   border-radius: 5px 0 0 5px;
 }

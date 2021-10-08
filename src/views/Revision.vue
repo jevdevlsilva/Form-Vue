@@ -25,15 +25,8 @@
       </b-row>
       <b-row>
         <p class="v-title">Preço da consulta</p>
-        <p class="user-data">{{ user.price }}</p>
+        <p class="user-data">R$ {{ user.price }}</p>
       </b-row>
-      <!-- 
-      <b-row >
-        <p class="v-title">Formas de pagamento da consulta</p>
-        <p class="user-data">
-          {{ user.payment_type }}
-        </p>
-      </b-row> -->
 
       <b-row>
         <p class="v-title">Formas de pagamento da consulta</p>
@@ -80,6 +73,7 @@ export default {
       informativeButton: {
         text: "CADASTRAR PROFISSIONAL",
         to: "/finalizar",
+        back: "/atendimento",
       },
       form: {
         state: null,
@@ -109,15 +103,15 @@ export default {
       this.$router.push("/");
     },
     nextStep() {
-      this.$router.push("/finalizar");
+      this.$router.push(this.informativeButton.to);
     },
     stepBack() {
-      this.$router.push("/atendimento");
+      this.$router.push(this.informativeButton.back);
     },
   },
   components: { Button, ButtonStepBack },
   computed: {
-    ...mapState(["user"]), // assuming you are using namespaced modules
+    ...mapState(["user"]),
   },
   created() {
     console.log(this.user);
@@ -134,7 +128,6 @@ export default {
   font-weight: 300;
 }
 .bordered {
-  /* border-bottom: 1px solid #ccc; */
   border-radius: 5px;
   padding: 20px 30px;
   text-align: left;
@@ -144,6 +137,7 @@ export default {
   cursor: pointer;
   font-size: 1.1rem;
   width: 50%;
+  color: var(--purple-primary);
 
   display: inline;
 }

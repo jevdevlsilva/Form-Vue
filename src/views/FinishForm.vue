@@ -42,7 +42,7 @@ export default {
   },
   methods: {},
   computed: {
-    ...mapState(["user"]), // assuming you are using namespaced modules
+    ...mapState(["user"]),
   },
   created() {
     console.log(this.user);
@@ -87,7 +87,7 @@ export default {
 }
 .iconSocialMedia {
   cursor: pointer;
-  color: #483698;
+  color: var(--purple-primary);
 }
 .page3 {
 }

@@ -20,7 +20,6 @@ export default {
   },
   props: {
     informative: { type: Object },
-    step: { type: Object },
     next: { type: String },
 
     nextStepEvent: {
@@ -46,18 +45,18 @@ export default {
   border: none;
 }
 .v-btn-color {
-  background: #483698;
+  background-color: var(--purple-primary);
 }
 .v-btn-color-2 {
-  background: #fbde40;
-  color: #282828;
+  background: var(--yellow-cta2);
+  color: var(--secondary-7);
 }
 .v-btn-color:hover {
-  background-color: rgb(54, 43, 112);
+  background-color: var(--purple-hover);
 }
 .v-btn-color-2:hover {
-  background: #ffe766;
-  color: #282828;
+  background-color: var(--yellow-cta1);
+  color: var(--secondary-7);
 }
 
 @media screen and (max-width: 767px) {
