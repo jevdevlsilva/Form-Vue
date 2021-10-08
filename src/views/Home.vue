@@ -143,7 +143,7 @@
             </b-form-group>
           </b-col>
         </b-row>
-        <MyProgressBar></MyProgressBar>
+        <MyProgressBar :step="'1'"></MyProgressBar>
         <b-row>
           <b-col>
             <Button

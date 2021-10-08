@@ -10,7 +10,9 @@
         class="progressBar "
       ></b-col>
       <b-col>
-        <span cols="6" md="3" lg="2" class="text-progress">1 de 2</span>
+        <span cols="6" md="3" lg="2" class="text-progress"
+          >{{ step }} de 2</span
+        >
       </b-col>
     </b-row>
   </div>
