@@ -1,24 +1,37 @@
-# test-front_end-form
+# Test_front_end_form_VUEJS
 
-## Project setup
-```
-npm install
+## 🚀 Pequeno formulário de cadastro de profissional
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [VueCli](https://cli.vuejs.org/).
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+
+### 🎲 Rodando o Projeto
+
+```bash
+# Clone este repositório
+$ git clone <https://github.com/jevdevlsilva/Form-Vue.git>
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd FORM-VUE
+
+# Instale as dependências
+$ npm install
+
+# Após instalação execute a aplicação em modo de desenvolvimento
+$ npm run serve
+
+# A aplicação inciará na porta:8080 - acesse <http://localhost:8080>
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Compilando para produção
 
-### Compiles and minifies for production
 ```
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
