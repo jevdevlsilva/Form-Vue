@@ -113,9 +113,6 @@ export default {
   computed: {
     ...mapState(["user"]),
   },
-  created() {
-    console.log(this.user);
-  },
 };
 </script>
 <style scoped>

@@ -45,7 +45,6 @@ export default {
     ...mapState(["user"]),
   },
   created() {
-    console.log(this.user);
     this.form = this.user;
     this.$store.dispatch("setUser", this.form);
   },

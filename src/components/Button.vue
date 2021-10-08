@@ -31,9 +31,7 @@ export default {
   computed: {
     ...mapState(["user"]),
   },
-  created() {
-    console.log(this.informative);
-  },
+  created() {},
 };
 </script>
 

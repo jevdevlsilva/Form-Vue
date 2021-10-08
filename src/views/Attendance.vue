@@ -63,7 +63,7 @@
                 </b-form-input>
               </b-input-group>
               <small v-if="priceErrorMsg" class="text-danger"
-                >Digite um valor entre 30 e 400*</small
+                >Digite um valor entre R$ 30,00 e 350,00*</small
               >
               <small v-if="error && form.price == undefined" class="text-danger"
                 >Esse campo é obrigatorio*</small
@@ -203,7 +203,7 @@ export default {
 
     maskAndVuelidatePrice(value) {
       this.priceErrorMsg = true;
-      if (value >= 30 && value <= 400) {
+      if (value >= 30 && value <= 350) {
         this.priceErrorMsg = false;
       }
     },
