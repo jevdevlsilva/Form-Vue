@@ -8,6 +8,19 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 [Git](https://git-scm.com), [VueCli](https://cli.vuejs.org/).
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
+
+
+### Página 1
+![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen1.png)
+
+### Página 2
+![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen2.png)
+
+
+## link para visualização completa
+https://jevdevlsilva.github.io/cadastro-de-profissional/
+
+
 ### 🎲 Rodando o Projeto
 
 ```bash
@@ -25,18 +38,6 @@ $ npm run serve
 
 # A aplicação inciará na porta:8080 - acesse <http://localhost:8080>
 ```
-
-
-### Página 1
-![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen1.png)
-
-### Página 2
-![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen2.png)
-
-
-## link para visualização completa
-https://jevdevlsilva.github.io/cadastro-de-profissional/
-
 
 ### Compilando para produção
 
