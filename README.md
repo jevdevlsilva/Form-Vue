@@ -27,10 +27,10 @@ $ npm run serve
 ```
 
 
-### page1
+### Página 1
 ![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen1.png)
 
-### page2
+### Página 2
 ![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen2.png)
 
 
