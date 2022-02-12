@@ -26,6 +26,8 @@ $ npm run serve
 # A aplicação inciará na porta:8080 - acesse <http://localhost:8080>
 ```
 
+
+![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen1.png)
 ### Compilando para produção
 
 ```
