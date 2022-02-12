@@ -2,11 +2,12 @@
 
 ## 🚀 Pequeno formulário de cadastro de profissional
 
-### Pré-requisitos
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com), [VueCli](https://cli.vuejs.org/).
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
+#### Descrição
+* Fórmulario com 4 passos para cadastro de profissional 
+* Projeto feito em Vuejs + minimo de libs possível para treinar tudo na mão. 
+
+
 
 
 
@@ -19,6 +20,13 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ## link para visualização completa
 https://jevdevlsilva.github.io/cadastro-de-profissional/
+
+
+### Pré-requisitos para rodar o projeto na sua máquina.
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [VueCli](https://cli.vuejs.org/).
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
 
 ### 🎲 Rodando o Projeto
