@@ -27,7 +27,17 @@ $ npm run serve
 ```
 
 
+### page1
 ![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen1.png)
+
+### page2
+![Settings Window](https://raw.github.com/jevdevlsilva/Form-Vue/master/public/screen2.png)
+
+
+## link para visualização completa
+https://jevdevlsilva.github.io/cadastro-de-profissional/
+
+
 ### Compilando para produção
 
 ```
